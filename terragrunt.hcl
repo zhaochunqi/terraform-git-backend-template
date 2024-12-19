@@ -1,5 +1,5 @@
 locals {
-  repo_path = "${regex("^git@([^:]+):(.+)\\.git$", get_env("GIT_REPO_URL"))[0]}/${regex("^git@([^:]+):(.+)\\.git$", get_env("GIT_REPO_URL"))[1]}"
+  repo_path = "${regex("^ssh://git@([^/]+)/(.+)\\.git$", run_cmd("git", "remote", "get-url", "origin"))[0]}/${regex("^ssh://git@([^/]+)/(.+)\\.git$", run_cmd("git", "remote", "get-url", "origin"))[1]}"
   state_path = path_relative_to_include() == "." ? "state.json" : "${path_relative_to_include()}/state.json"
 }
 
